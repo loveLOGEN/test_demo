@@ -1,0 +1,30 @@
+server:
+  port: 10086
+
+eureka:
+  instance:
+    hostname: localhost
+  # 需要等待多久才可以将此实例删除，默认为90秒,改为15秒
+  LeaseExpirationDurationInSeconds: 15
+  #  服务状态上报间隔 -eureka客户需要多长时间发送心跳给eureka服务器，表明它仍然活着,默认30 秒，改为5秒
+  LeaseRenewalIntervalInSeconds: 5
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    # 拉取服务列表间隔时间 --从eureka服务器注册表中获取注册信息的时间间隔（s），默认为30秒,改为5秒
+    registryFetchIntervalSeconds: 5
+    # InstanceInfoReplicator 将实例信息变更同步到 Eureka Server的初始延迟时间 ，默认为40秒,改为5秒
+    initial-instance-info-replication-interval-seconds: 5
+  server:
+    # 清除失效服务间隔时间 --过期实例应该启动并运行的时间间隔，单位为毫秒，默认为60 * 1000，改为5秒
+    EvictionIntervalTimerInMs: 5000
+    # 响应数据缓存有效期 --客户端的有效负载缓存应该更新的时间间隔，默认为30 * 1000毫秒,改为5秒
+    responseCacheUpdateIntervalMs: 5000
+
+ribbon:
+  eureka:
+    enabled: true
+  ## 负载均衡器服务列表缓存  --默认30秒,改为5秒
+  ServerListRefreshInterval: 5000
